@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        //Start with the minimum amount of h = 1
+        int l = 1;
+        int r = *std::max_element(piles.begin(),piles.end());
+        int res = r;
+        while (l <= r)
+        {
+            int k = l + (r - l)/ 2;
+
+            long long totalTime = 0;
+            for (int p : piles)
+            {
+                totalTime += (p + k - 1LL) / k;
+            }
+
+            if (totalTime <= h)
+            {
+                res = k;
+                r = k - 1;
+            }
+            else
+            {
+                l = k + 1;
+            }
+        }
+        return res;
+    }
+};
